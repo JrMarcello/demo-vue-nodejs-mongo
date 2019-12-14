@@ -5,7 +5,10 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "docker-build": "docker build -t leads2b/frontend . && docker run --name LEADS2B-FRONTEND -p 3000:3000 leads2b/frontend",
+    "start": "docker start LEADS2B-FRONTEND",
+    "stop": "docker stop LEADS2B-FRONTEND"
   },
   "dependencies": {
     "core-js": "^3.4.3",

@@ -13,7 +13,7 @@ services:
     links:
       - backend
     ports:
-      - "5000:5000"
+      - "8000:8080"
 
   backend:
     container_name: LEADS2B-BACKEND
@@ -34,5 +34,5 @@ services:
     container_name: LEADS2B-DB
     ports:
       - "27017:27017"
-    volumes:
-      - ./backend/data/db:/data/db
+    # volumes:
+    #   - ./backend/data/db:/data/db
