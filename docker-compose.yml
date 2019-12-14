@@ -1,0 +1,38 @@
+version: "3"
+
+services:
+  frontend:
+    container_name: LEADS2B-FRONTEND
+    build: ./frontend
+    #env_file: .env
+    volumes:
+      - ./frontend:/frontend
+      - /frontend/node_modules
+    depends_on:
+      - backend
+    links:
+      - backend
+    ports:
+      - "5000:5000"
+
+  backend:
+    container_name: LEADS2B-BACKEND
+    build: ./backend
+    env_file: ./backend/.env
+    volumes:
+      - ./backend:/backend
+      - /backend/node_modules
+    depends_on:
+      - db
+    links:
+      - db
+    ports:
+      - "3000:3000"
+
+  db:
+    image: "mongo"
+    container_name: LEADS2B-DB
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./backend/data/db:/data/db
