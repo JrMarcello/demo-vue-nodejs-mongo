@@ -1,28 +1,48 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import Login from '../views/login.vue'
 
-Vue.use(VueRouter);
-
-const routes = [
-  {
-    path: "/",
-    name: "home",
-    component: Home
-  },
-  {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
-  }
-];
+Vue.use(VueRouter)
 
 const router = new VueRouter({
-  routes
-});
+  mode: 'history',
+  routes: [
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
+    },
+    {
+      path: '/',
+      name: 'employees',
+      meta: {
+        requiresAuth: true
+      },
+      component: () => import('../views/employee.vue')
+    },
+    { path: '*', redirect: '/' }
+  ]
+})
 
-export default router;
+// Vue.http.interceptors.push((request, next) => {
+//   if (vueAuth.isAuthenticated()) {
+//     request.headers.set('Authorization', `JWT ${vueAuth.getToken()}`);
+//     request.headers.set('Accept', 'application/json');
+//   }
+
+//   next();
+// });
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!localStorage.getItem('leands2b/token')) {
+      return next('/login')
+    }
+
+    next()
+  } else {
+    next()
+  }
+})
+
+export default router

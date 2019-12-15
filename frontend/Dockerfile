@@ -1,10 +1,10 @@
-FROM node:alpine
+FROM node:lts-alpine
 
 WORKDIR /frontend
 
 COPY package*.json ./
 
-RUN npm install
+RUN npm install -q
 
 COPY . .
 
