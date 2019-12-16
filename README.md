@@ -15,3 +15,4 @@ Com o terminal aberto, navegue até a raiz do projeto e digite:
 ```bash
 docker-compose up
 ```
+Para informações especificas dos projetos de Frontend e Backend, consultar o README.md de cada projeto.
