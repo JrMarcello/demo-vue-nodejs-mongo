@@ -70,7 +70,8 @@ export const login = async credentials => {
 
   if (!user || !bcrypt.compareSync(credentials.password, user.password)) throw Error(constants.user.error.LOGIN)
 
-  user.token = await getToken({ user })
+  user.token = await getToken({ id: user._id })
+
   user.save()
 
   return user

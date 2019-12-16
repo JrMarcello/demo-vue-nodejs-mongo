@@ -25,17 +25,16 @@ const router = new VueRouter({
 })
 
 // Vue.http.interceptors.push((request, next) => {
-//   if (vueAuth.isAuthenticated()) {
-//     request.headers.set('Authorization', `JWT ${vueAuth.getToken()}`);
-//     request.headers.set('Accept', 'application/json');
-//   }
+//   Vue.prototype.$http.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('leands2b/token')}`
+//   // request.headers.set('Authorization', `Bearer ${localStorage.getItem('leands2b/token')}`)
+//   // request.headers.set('Accept', 'application/json')
 
-//   next();
-// });
+//   next()
+// })
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (!localStorage.getItem('leands2b/token')) {
+    if (!localStorage.getItem('token')) {
       return next('/login')
     }
 

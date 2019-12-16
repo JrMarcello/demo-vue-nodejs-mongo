@@ -31,14 +31,16 @@ export const create = data => dao.create(data)
  * @returns - Returns a object
  */
 export const update = data => {
-  return dao.update({
-    _id: data.id,
-    name: data.name,
-    email: data.email,
-    role: data.role,
-    phone: data.phone,
-    admissionDate: data.admissionDate
-  })
+  return dao.updateOne(
+    { _id: data._id },
+    {
+      name: data.name,
+      email: data.email,
+      role: data.role,
+      phone: data.phone,
+      admissionDate: data.admissionDate
+    }
+  )
 }
 
 /**

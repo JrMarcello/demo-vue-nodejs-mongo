@@ -1,6 +1,9 @@
 import { checkSchema, validationResult } from 'express-validator'
 import constants from '../constants'
 
+/**
+ * Middiware to check if data is valid
+ */
 export default validation => {
   return [
     checkSchema(validation),
@@ -10,6 +13,7 @@ export default validation => {
         return next()
       }
 
+      console.error(errors.mapped())
       return res.status(500).send(Object.assign(constants.validations.INVALID_REQUEST_DATA, { errors: errors.array() }))
     }
   ]

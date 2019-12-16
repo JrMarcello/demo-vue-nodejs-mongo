@@ -11,37 +11,40 @@ const getters = {
 }
 
 const actions = {
-  login({ commit }, user) {
+  async register({ commit }, user) {
     return new Promise(async (resolve, reject) => {
       try {
-        const response = await axios({
-          url: 'http://localhost:3000/api/v1/user/login',
-          data: user,
-          method: 'POST'
-        })
+        const response = await axios.post('http://localhost:3000/api/v1/user', user)
 
-        localStorage.setItem('leands2b/token', response.data.token)
-        // axios.defaults.headers.common['Authorization'] = response.data.token
-        commit('setUser', response.data)
-
+        commit('setUser', {})
         resolve(response.data)
       } catch (error) {
-        localStorage.removeItem('leands2b/token')
         reject(error)
       }
     })
   },
-  async register({ commit }, user) {
+  login({ commit }, user) {
     return new Promise(async (resolve, reject) => {
       try {
-        const response = await axios({
-          url: 'http://localhost:3000/api/v1/user',
-          data: user,
-          method: 'POST'
-        })
+        const response = await axios.post('http://localhost:3000/api/v1/user/login', user)
 
-        commit('setUser', {})
+        localStorage.setItem('token', response.data.token)
+        commit('setUser', response.data)
+
         resolve(response.data)
+      } catch (error) {
+        localStorage.removeItem('token')
+        reject(error)
+      }
+    })
+  },
+  logout({ commit }) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        localStorage.removeItem('leands2b/token')
+        commit('setUser', null)
+
+        resolve()
       } catch (error) {
         reject(error)
       }

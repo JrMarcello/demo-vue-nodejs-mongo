@@ -1,19 +1,6 @@
-// import Vue from "vue";
-// import Vuex from "vuex";
-// import VueAxios from "vue-axios";
-// import { VueAuthenticate } from "vue-authenticate";
-// import Axios from "axios";
+import axios from 'axios'
 
-// Vue.use(Vuex);
-// Vue.use(VueAxios, axios);
-
-// Vue.prototype.$http = Axios;
-
-// const vueAuth = new VueAuthenticate(Vue.prototype.$http, {
-//   baseUrl: "http://localhost:3000/api/v1"
-// });
-
-// import { user } from '../api';
+const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` }
 
 const state = {
   employees: []
@@ -25,42 +12,71 @@ const getters = {
   }
 }
 
-// const actions = {
-//   getAll({ commit }) {
-//     console.log("getAll");
-//     // commit("getAll", user);
+const actions = {
+  getAll({ commit }) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const response = await axios.get('http://localhost:3000/api/v1/employee', { headers })
 
-//     // chama api aqui
-//   },
-//   getByID({ commit }, id) {
-//     console.log("getByID", id);
-//     //commit("setUser", user);
+        commit('SETALL', response.data)
+        resolve(response.data)
+      } catch (error) {
+        reject(error)
+      }
+    })
+  },
+  create({ commit }, employee) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const response = await axios.post('http://localhost:3000/api/v1/employee', employee, { headers })
 
-//     // chama api aqui
-//   },
-//   create({ commit }, user) {
-//     console.log("create", id);
-//     //commit("setUser", user);
+        commit('ADD', response.data.employee)
+        resolve(response.data)
+      } catch (error) {
+        reject(error)
+      }
+    })
+  },
+  update({ commit }, employee) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        await axios.put('http://localhost:3000/api/v1/employee', employee, { headers })
 
-//     // chama api aqui
-//   },
-//   update({ commit }, user) {
-//     console.log("update", user);
-//     //commit("setUser", user);
+        commit('UPDATE', employee)
+        resolve()
+      } catch (error) {
+        reject(error)
+      }
+    })
+  },
+  remove({ commit }, id) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        await axios.delete(`http://localhost:3000/api/v1/employee/${id}`, { headers })
 
-//     // chama api aqui
-//   },
-//   remove({ commit }, id) {
-//     console.log("remove", id);
-//     //commit("setUser", user);
-
-//     // chama api aqui
-//   }
-// };
+        commit('REMOVE', id)
+        resolve()
+      } catch (error) {
+        reject(error)
+      }
+    })
+  }
+}
 
 const mutations = {
-  setUser(state, user) {
-    state.user = user
+  SETALL(state, employees) {
+    state.employees = employees
+  },
+  ADD(state, employee) {
+    state.employees.push(employee)
+  },
+  UPDATE(state, employee) {
+    state.employees[state.employees.findIndex(e => e._id === employee._id)] = employee
+  },
+  REMOVE(state, id) {
+    state.employees = state.employees.filter(employee => {
+      return employee._id !== id
+    })
   }
 }
 
@@ -68,6 +84,6 @@ export default {
   namespaced: true,
   state,
   getters,
-  //actions,
+  actions,
   mutations
 }
