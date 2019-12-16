@@ -49,4 +49,4 @@ export const update = data => {
  * @param {string} _id - User ID
  * @returns - Returns a object
  */
-export const remove = _id => dao.remove({ _id })
+export const remove = _id => dao.deleteOne({ _id })

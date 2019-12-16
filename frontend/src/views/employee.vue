@@ -4,7 +4,15 @@
     <div class="w-75 mx-auto mt-5">
       <b-card>
         <b-button class="bg-primary border border-primary float-right m-3" v-b-modal.createModal>Novo</b-button>
-        <b-table ref="table" show-empty striped hover :fields="fields" :items="employees">
+        <b-table
+          ref="table"
+          :fields="fields"
+          :items="employees"
+          hover
+          striped
+          show-empty
+          empty-text="Ainda não exitem funcionários cadastrados"
+        >
           <template v-slot:cell(actions)="row">
             <b-button class="mr-1 bg-primary border border-primary" @click="handleUpdateModal(row.item)">Editar</b-button>
             <b-button class="bg-danger border border-danger" @click="remove(row.item)">Deletar</b-button>
