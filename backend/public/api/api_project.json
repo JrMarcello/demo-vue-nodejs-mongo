@@ -1,5 +1,5 @@
 {
-  "name": "API - TESTE - LEADS2B",
+  "name": "API LEADS2B - TESTE",
   "version": "1.0.0",
   "description": "Documentação da API",
   "title": "API Doc",
@@ -9,7 +9,7 @@
   "apidoc": "0.3.0",
   "generator": {
     "name": "apidoc",
-    "time": "2019-12-14T16:11:45.301Z",
+    "time": "2019-12-16T01:54:57.349Z",
     "url": "http://apidocjs.com",
     "version": "0.17.7"
   }

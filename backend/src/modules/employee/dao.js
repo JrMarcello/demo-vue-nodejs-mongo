@@ -1,5 +1,4 @@
 import mongoose from 'mongoose'
-// import '../../core/database'
 
 const { Schema } = mongoose
 

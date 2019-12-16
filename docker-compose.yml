@@ -4,7 +4,6 @@ services:
   frontend:
     container_name: LEADS2B-FRONTEND
     build: ./frontend
-    #env_file: .env
     volumes:
       - ./frontend:/frontend
       - /frontend/node_modules
@@ -34,5 +33,3 @@ services:
     container_name: LEADS2B-DB
     ports:
       - "27017:27017"
-    # volumes:
-    #   - ./backend/data/db:/data/db
