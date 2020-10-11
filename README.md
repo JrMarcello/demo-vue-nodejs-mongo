@@ -1,6 +1,6 @@
-# **Leads2b - Teste**
+# **DEMOPROJECT-VUE-NODEJS-MONGO**
 
-Uma aplicação web para gerencia de cadastro de funcionarios desenvolvida para o processo seletivo da Leads2b. Nela, foram utilizadas as seguintes tecnologias:
+Uma simples aplicação web para gerencia de cadastro de funcionarios. Nela, foram utilizadas as seguintes tecnologias:
 
 - [Nodejs](https://nodejs.org/en/)
 - [MongoDB](https://www.mongodb.com/)
